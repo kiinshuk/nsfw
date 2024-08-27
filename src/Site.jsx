@@ -25,8 +25,8 @@ const Site = () => {
 
     return (
         <div className='main'>
-            <button className='button' onClick={img}>Click here</button><br />
             {url && <img src={url} alt='Fetched from API' />}
+            <button className='button' onClick={img}>Click here</button><br />
         </div>
     );
 };
