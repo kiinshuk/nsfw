@@ -4,6 +4,7 @@ import './App.css';
 
 const Site = () => {
     const [url, setUrl] = useState('');
+    const [name, setName] = useState('');
 
     const options = {
         method: 'GET',
@@ -17,16 +18,27 @@ const Site = () => {
     const img = () => {
         axios.request(options).then(response => {
             const randomIndex = Math.floor(Math.random() * response.data.result.length);
+            console.log(response.data)
             setUrl(response.data.result[randomIndex].picture);
+            setName(response.data.result[randomIndex].pornStarName);
         }).catch(err => {
             console.log("error", err);
         });
     };
 
     return (
-        <div className='main'>
-            {url && <img src={url} alt='Fetched from API' />}
-            <button className='button' onClick={img}>Click here</button><br />
+        <div className='container'>
+            <div className='card'>
+                <h2 className='title'>{name ? `Name: ${name}` : 'Click the button to fetch an image'}</h2>
+                {url ? (
+                    <img className='image' src={url} alt={`cool`} />
+                ) : (
+                    <div className='placeholder'>No Image Available</div>
+                )}
+                <button className='button' onClick={img}>
+                    {url ? 'Fetch Another Image' : 'Fetch Random Image'}
+                </button>
+            </div>
         </div>
     );
 };
